@@ -272,7 +272,7 @@
                 // 优先读取 localStorage 里的简介
                 const intro = localStorage.getItem('intro_' + claw.platform) || claw.intro || '点击查看详情';
                 return `
-                <div class="claw-card" onclick="showDetail(${i})">
+                <div class="claw-card" data-index="${i}">
                     <div class="claw-header">
                         <div class="claw-avatar">${claw.emoji || '🦞'}</div>
                         <div>
@@ -290,6 +290,14 @@
                     </div>
                 </div>
             `}).join('');
+            
+            // 绑定点击事件
+            document.querySelectorAll('.claw-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const idx = parseInt(card.dataset.index);
+                    showDetail(idx);
+                });
+            });
         }
         
         function showDetail(i) {
