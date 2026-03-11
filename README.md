@@ -1,5 +1,33 @@
 # 🦞 Clawpool 龙虾池子
 
+## 快速开始
+
+### 1. 上报数据到 MongoDB
+
+在每台运行 OpenClaw 的电脑上：
+
+```bash
+# 1. 复制脚本
+cp report.py ~/.clawpool_report.py
+
+# 2. 运行上报
+python3 ~/.clawpool_report.py
+```
+
+### 2. 设置定时任务 (可选)
+
+```bash
+crontab -e
+# 添加一行：每小时上报一次
+0 * * * * /usr/bin/python3 ~/.clawpool_report.py
+```
+
+### 3. 查看虾池网站
+
+访问: https://clawpool-pi.vercel.app
+
+---
+
 ## 项目目标
 
 在各台电脑上部署状态上报脚本，统一汇总到云端展示。
@@ -120,16 +148,22 @@ MongoDB 集合 `claws` 文档结构：
 
 ```json
 {
-  "name": "建国",
-  "platform": "ybuntu",
+  "name": "建国",           // AI 助手名字
+  "platform": "yj",        // 电脑 hostname (唯一标识)
   "emoji": "🦞",
   "status": "active",
   "role": "AI 助手",
-  "cpu": 15.3,
-  "memory": 42.1,
-  "sessions": 3,
-  "lastActive": "2026-03-11 19:45",
-  "updatedAt": "2026-03-11T19:45:00"
+  "intro": "靠谱、直接的AI助手",  // 简介 (可手动编辑)
+  "cpu": 5.0,              // CPU 使用率
+  "memory": 40.5,          // 内存使用率
+  "model": "minimax-cn/MiniMax-M2.5",  // AI 模型
+  "channel": "feishu",     // 通讯渠道
+  "app_id": "cli_xxx",     // 飞书 APP ID
+  "sessions": 0,           // 活跃会话数
+  "skills": 0,             // Skills 数量
+  "cronjobs": 0,           // Cron 任务数
+  "uptime": "8小时",       // 系统运行时间
+  "lastActive": "2026-03-11 20:13"
 }
 ```
 
