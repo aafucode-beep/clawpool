@@ -301,8 +301,20 @@
                             <span>${claw.role || '-'}</span>
                         </div>
                         <div class="claw-info-row">
-                            <span class="label">消息数</span>
-                            <span>${claw.messages || 0}</span>
+                            <span class="label">模型</span>
+                            <span>${claw.model || '-'}</span>
+                        </div>
+                        <div class="claw-info-row">
+                            <span class="label">CPU</span>
+                            <span>${claw.cpu || 0}%</span>
+                        </div>
+                        <div class="claw-info-row">
+                            <span class="label">内存</span>
+                            <span>${claw.memory || 0}%</span>
+                        </div>
+                        <div class="claw-info-row">
+                            <span class="label">会话</span>
+                            <span>${claw.sessions || 0}</span>
                         </div>
                         <div class="claw-info-row">
                             <span class="label">最后活跃</span>
