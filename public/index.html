@@ -12,55 +12,32 @@
             --text: #ccd6f6;
             --text2: #8892b0;
             --accent: #64ffda;
-            --lobster: #ff6b6b;
-            --gold: #ffd93d;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; 
-            background: var(--bg); 
-            color: var(--text); 
-            min-height: 100vh;
+            background: var(--bg); color: var(--text); min-height: 100vh;
+            padding-bottom: 80px;
         }
         
-        /* Header */
         header {
             background: var(--bg2);
-            padding: 1.5rem 2rem;
+            padding: 1rem 2rem;
             border-bottom: 1px solid var(--bg3);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        header h1 { 
-            font-size: 1.5rem; 
-            color: var(--accent);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        header h1 span { font-size: 2rem; }
+        header h1 { font-size: 1.25rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; }
+        header h1 span { font-size: 1.5rem; }
         
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem;
-            background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
-        }
-        .hero h2 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        .hero p {
-            color: var(--text2);
-            font-size: 1rem;
-        }
-        
-        /* Stats */
         .stats {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             padding: 1.5rem;
             flex-wrap: wrap;
         }
@@ -68,47 +45,38 @@
             background: var(--bg2);
             border: 1px solid var(--bg3);
             border-radius: 8px;
-            padding: 1.5rem 2rem;
+            padding: 1rem 1.5rem;
             text-align: center;
-            min-width: 150px;
         }
-        .stat-card .number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--accent);
-        }
-        .stat-card .label {
-            color: var(--text2);
-            font-size: 0.9rem;
-            margin-top: 0.25rem;
-        }
+        .stat-card .number { font-size: 1.5rem; font-weight: bold; color: var(--accent); }
+        .stat-card .label { color: var(--text2); font-size: 0.75rem; margin-top: 0.25rem; }
         
-        /* Claw Grid */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
-        }
-        .section-title {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            padding: 1rem 2rem;
         }
         
+        .section-title {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        
+        /* 卡片网格 */
         .claw-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
         }
         
+        /* 卡片 */
         .claw-card {
             background: var(--bg2);
             border: 1px solid var(--bg3);
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.25rem;
+            cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .claw-card:hover {
@@ -119,115 +87,152 @@
         .claw-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
         }
         .claw-avatar {
-            width: 60px;
-            height: 60px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: var(--bg3);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
         .claw-name {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: bold;
         }
         .claw-platform {
             color: var(--text2);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         
         .claw-status {
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
-            padding: 0.25rem 0.75rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 20px;
-            font-size: 0.75rem;
-            margin-bottom: 1rem;
+            font-size: 0.7rem;
+            margin-bottom: 0.75rem;
         }
-        .status-active {
-            background: rgba(100, 255, 218, 0.1);
-            color: var(--accent);
-        }
-        .status-inactive {
-            background: rgba(255, 107, 107, 0.1);
-            color: var(--lobster);
+        .status-active { background: rgba(100,255,218,0.1); color: var(--accent); }
+        .status-inactive { background: rgba(255,107,107,0.1); color: #ff6b6b; }
+        
+        /* 简要信息 */
+        .claw-brief {
+            font-size: 0.85rem;
+            color: var(--text2);
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
         }
         
-        .claw-info {
-            display: grid;
-            gap: 0.5rem;
+        .claw-meta {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
-        .claw-info-row {
+        .meta-tag {
+            background: var(--bg3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: var(--text2);
+        }
+        
+        /* 详情弹窗 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal.show { display: flex; }
+        .modal-content {
+            background: var(--bg2);
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--bg3);
+        }
+        .modal-header .claw-avatar { width: 56px; height: 56px; font-size: 1.75rem; }
+        .modal-title { font-size: 1.25rem; font-weight: bold; }
+        .modal-platform { color: var(--text2); font-size: 0.85rem; }
+        
+        .detail-row {
             display: flex;
             justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--bg3);
             font-size: 0.9rem;
         }
-        .claw-info-row .label {
+        .detail-row .label { color: var(--text2); }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
             color: var(--text2);
+            font-size: 1.5rem;
+            cursor: pointer;
         }
         
-        .claw-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-        .tag {
-            background: var(--bg3);
-            padding: 0.25rem 0.75rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            color: var(--text2);
-        }
-        
-        /* Footer */
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 1.5rem;
             color: var(--text2);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border-top: 1px solid var(--bg3);
-            margin-top: 3rem;
+            margin-top: 2rem;
         }
     </style>
 </head>
 <body>
     <header>
         <h1><span>🦞</span> Clawpool</h1>
-        <div id="device-name"></div>
     </header>
-    
-    <div class="hero">
-        <h2>🐉 我的龙虾池子</h2>
-        <p>记录各平台养的小龙虾 🦐</p>
-    </div>
     
     <div class="stats">
         <div class="stat-card">
             <div class="number" id="total-claws">-</div>
-            <div class="label">�龙虾总数</div>
+            <div class="label">龙虾总数</div>
         </div>
         <div class="stat-card">
             <div class="number" id="active-claws">-</div>
-            <div class="label">✅ 活跃</div>
+            <div class="label">活跃中</div>
         </div>
         <div class="stat-card">
             <div class="number" id="platforms">-</div>
-            <div class="label">🌐 平台数</div>
+            <div class="label">平台数</div>
         </div>
     </div>
     
     <div class="container">
-        <h3 class="section-title">🦐 虾兵虾将</h3>
-        <div class="claw-grid" id="claw-grid">
-            <!-- 动态加载 -->
-        </div>
+        <h3 class="section-title">🦐 虾兵虾将 (点击查看详情)</h3>
+        <div class="claw-grid" id="claw-grid"></div>
+    </div>
+    
+    <!-- 详情弹窗 -->
+    <div class="modal" id="modal">
+        <div class="modal-content" id="modal-content"></div>
     </div>
     
     <footer>
@@ -236,43 +241,24 @@
     
     <script>
         const API_BASE = '';
+        let allClaws = [];
         
         async function loadClaws() {
             try {
                 const resp = await fetch(API_BASE + '/api/claws');
-                const claws = await resp.json();
-                renderClaws(claws);
-                updateStats(claws);
+                allClaws = await resp.json();
+                renderClaws(allClaws);
+                updateStats(allClaws);
             } catch (e) {
                 console.error('加载失败:', e);
-                // 演示数据
                 const demoClaws = [
                     {
-                        name: "建国",
-                        platform: "OpenClaw",
-                        emoji: "🦞",
-                        status: "active",
-                        role: "超级个人助理",
-                        messages: 1234,
-                        lastActive: "2026-03-11"
-                    },
-                    {
-                        name: "Claude",
-                        platform: "Claude Code",
-                        emoji: "💻",
-                        status: "active",
-                        role: "编程助手",
-                        messages: 567,
-                        lastActive: "2026-03-10"
-                    },
-                    {
-                        name: "小理",
-                        platform: "HUAWEI",
-                        emoji: "🦐",
-                        status: "inactive",
-                        role: "控制面板",
-                        messages: 89,
-                        lastActive: "2026-03-05"
+                        name: "建国", platform: "yj", emoji: "🦞",
+                        status: "active", role: "AI 助手",
+                        channel: "feishu", app_id: "cli_xxx",
+                        cpu: 5, memory: 40, model: "MiniMax-M2.5",
+                        sessions: 0, skills: 0, cronjobs: 0,
+                        uptime: "8小时", lastActive: "2026-03-11"
                     }
                 ];
                 renderClaws(demoClaws);
@@ -282,60 +268,85 @@
         
         function renderClaws(claws) {
             const grid = document.getElementById('claw-grid');
-            grid.innerHTML = claws.map(claw => `
-                <div class="claw-card">
+            grid.innerHTML = claws.map((claw, i) => {
+                // 优先读取 localStorage 里的简介
+                const intro = localStorage.getItem('intro_' + claw.platform) || claw.intro || '点击查看详情';
+                return `
+                <div class="claw-card" onclick="showDetail(${i})">
                     <div class="claw-header">
                         <div class="claw-avatar">${claw.emoji || '🦞'}</div>
                         <div>
                             <div class="claw-name">${claw.name}</div>
-                            <div class="claw-platform">${claw.platform}</div>
+                            <div class="claw-platform">📍 ${claw.platform}</div>
                         </div>
                     </div>
                     <div class="claw-status ${claw.status === 'active' ? 'status-active' : 'status-inactive'}">
-                        <span>${claw.status === 'active' ? '🟢' : '⚪'}</span>
-                        ${claw.status === 'active' ? '活跃中' : '休眠中'}
+                        💬 ${claw.channel || '-'}
                     </div>
-                    <div class="claw-info">
-                        <div class="claw-info-row">
-                            <span class="label">角色</span>
-                            <span>${claw.role || '-'}</span>
-                        </div>
-                        <div class="claw-info-row">
-                            <span class="label">模型</span>
-                            <span>${claw.model || '-'}</span>
-                        </div>
-                        <div class="claw-info-row">
-                            <span class="label">CPU</span>
-                            <span>${claw.cpu || 0}%</span>
-                        </div>
-                        <div class="claw-info-row">
-                            <span class="label">内存</span>
-                            <span>${claw.memory || 0}%</span>
-                        </div>
-                        <div class="claw-info-row">
-                            <span class="label">会话</span>
-                            <span>${claw.sessions || 0}</span>
-                        </div>
-                        <div class="claw-info-row">
-                            <span class="label">最后活跃</span>
-                            <span>${claw.lastActive || '-'}</span>
-                        </div>
-                    </div>
-                    <div class="claw-tags">
-                        ${(claw.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+                    <div class="claw-brief">${intro}</div>
+                    <div class="claw-meta">
+                        <span class="meta-tag">CPU ${claw.cpu || 0}%</span>
+                        <span class="meta-tag">内存 ${claw.memory || 0}%</span>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
+        
+        function showDetail(i) {
+            const c = allClaws[i];
+            // 从 localStorage 读取已保存的简介
+            const savedIntro = localStorage.getItem('intro_' + c.platform) || c.intro || '';
+            
+            const m = document.getElementById('modal-content');
+            m.innerHTML = `
+                <div class="modal-header">
+                    <div class="claw-avatar">${c.emoji || '🦞'}</div>
+                    <div>
+                        <div class="modal-title">${c.name}</div>
+                        <div class="modal-platform">${c.platform}</div>
+                    </div>
+                </div>
+                <div style="margin-bottom:0.5rem;color:var(--text2);font-size:0.85rem;">
+                    简介 <button onclick="editIntro('${c.platform}')" style="margin-left:0.5rem;background:var(--bg3);border:none;color:var(--accent);padding:0.2rem 0.5rem;border-radius:4px;cursor:pointer;font-size:0.75rem;">✏️ 编辑</button>
+                </div>
+                <div id="intro-display" style="margin-bottom:1rem;color:var(--text);font-size:0.95rem;line-height:1.5;padding:0.75rem;background:var(--bg3);border-radius:8px;">
+                    ${savedIntro || '暂无简介'}
+                </div>
+                <div class="detail-row"><span class="label">状态</span><span>${c.status === 'active' ? '🟢 活跃' : '⚪ 休眠'}</span></div>
+                <div class="detail-row"><span class="label">角色</span><span>${c.role || '-'}</span></div>
+                <div class="detail-row"><span class="label">渠道</span><span>${c.channel || '-'}</span></div>
+                <div class="detail-row"><span class="label">APP ID</span><span style="font-size:0.75rem">${c.app_id || '-'}</span></div>
+                <div class="detail-row"><span class="label">模型</span><span>${c.model || '-'}</span></div>
+                <div class="detail-row"><span class="label">CPU</span><span>${c.cpu || 0}%</span></div>
+                <div class="detail-row"><span class="label">内存</span><span>${c.memory || 0}%</span></div>
+                <div class="detail-row"><span class="label">会话数</span><span>${c.sessions || 0}</span></div>
+                <div class="detail-row"><span class="label">Skills</span><span>${c.skills || 0}</span></div>
+                <div class="detail-row"><span class="label">Cron任务</span><span>${c.cronjobs || 0}</span></div>
+                <div class="detail-row"><span class="label">运行时间</span><span>${c.uptime || '-'}</span></div>
+                <div class="detail-row"><span class="label">最后活跃</span><span>${c.lastActive || '-'}</span></div>
+            `;
+            document.getElementById('modal').classList.add('show');
+        }
+        
+        function editIntro(platform) {
+            const currentIntro = localStorage.getItem('intro_' + platform) || allClaws.find(c => c.platform === platform)?.intro || '';
+            const newIntro = prompt('请输入简介:', currentIntro);
+            if (newIntro !== null) {
+                localStorage.setItem('intro_' + platform, newIntro);
+                showDetail(allClaws.findIndex(c => c.platform === platform));
+            }
+        }
+        
+        document.getElementById('modal').addEventListener('click', (e) => {
+            if (e.target.id === 'modal') document.getElementById('modal').classList.remove('show');
+        });
         
         function updateStats(claws) {
             document.getElementById('total-claws').textContent = claws.length;
             document.getElementById('active-claws').textContent = claws.filter(c => c.status === 'active').length;
-            const platforms = [...new Set(claws.map(c => c.platform))];
-            document.getElementById('platforms').textContent = platforms.length;
+            document.getElementById('platforms').textContent = [...new Set(claws.map(c => c.platform))].length;
         }
         
-        // 初始化
         loadClaws();
     </script>
 </body>

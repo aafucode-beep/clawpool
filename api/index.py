@@ -1,24 +1,21 @@
 """
 Clawpool 龙虾池子 - Vercel API Handler
+仅供 Vercel 部署使用，本地运行请用 report.py
 """
 import os
 import json
-from datetime import datetime
 
-# MongoDB 配置
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb+srv://mongojianguo:02tF3LjCcn6oa6dw@jianguo.pboosfo.mongodb.net/clawpool")
-DATABASE_NAME = "clawpool"
+MONGO_URI = os.environ.get("MONGO_URI", "")
 
 try:
     from pymongo import MongoClient
     client = MongoClient(MONGO_URI)
-    db = client[DATABASE_NAME]
+    db = client["clawpool"]
     claws = db.claws
     client.admin.command('ping')
     MONGO_OK = True
 except Exception as e:
     MONGO_OK = False
-    print(f"MongoDB 连接失败: {e}")
     claws_data = []
 
 def get_all_claws():
@@ -51,7 +48,7 @@ def handler(request):
                 "project": "Clawpool 龙虾池子",
                 "version": "1.0",
                 "platform": "Vercel + MongoDB Atlas",
-                "storage": "腾讯 COS",
+                "storage": "腾讯 COS (可选)",
                 "built_by": "建国 🦞"
             }, ensure_ascii=False)
         }
