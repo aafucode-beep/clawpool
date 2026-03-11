@@ -34,6 +34,28 @@
         header h1 { font-size: 1.25rem; color: var(--accent); display: flex; align-items: center; gap: 0.5rem; }
         header h1 span { font-size: 1.5rem; }
         
+        /* Tab 导航 */
+        .tabs {
+            display: flex;
+            background: var(--bg2);
+            border-bottom: 1px solid var(--bg3);
+        }
+        .tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            color: var(--text2);
+            font-size: 0.95rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab:hover { color: var(--text); background: rgba(255,255,255,0.02); }
+        .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
         .stats {
             display: flex;
             justify-content: center;
@@ -210,6 +232,14 @@
         <h1><span>🦞</span> Clawpool</h1>
     </header>
     
+    <!-- Tab 导航 -->
+    <div class="tabs">
+        <div class="tab active" onclick="switchTab('lobsters')">🦞 龙虾</div>
+        <div class="tab" onclick="switchTab('works')">🛠️ 作品</div>
+    </div>
+    
+    <!-- 龙虾 Tab -->
+    <div class="tab-content active" id="tab-lobsters">
     <div class="stats">
         <div class="stat-card">
             <div class="number" id="total-claws">-</div>
@@ -233,6 +263,15 @@
     <!-- 详情弹窗 -->
     <div class="modal" id="modal">
         <div class="modal-content" id="modal-content"></div>
+    </div>
+    </div> <!-- 结束龙虾 Tab -->
+    
+    <!-- 作品 Tab -->
+    <div class="tab-content" id="tab-works">
+        <div class="container">
+            <h3 class="section-title">🛠️ 工具与网站</h3>
+            <div class="claw-grid" id="works-grid"></div>
+        </div>
     </div>
     
     <footer>
@@ -353,6 +392,48 @@
             document.getElementById('total-claws').textContent = claws.length;
             document.getElementById('active-claws').textContent = claws.filter(c => c.status === 'active').length;
             document.getElementById('platforms').textContent = [...new Set(claws.map(c => c.platform))].length;
+        }
+        
+        }
+        
+        // Tab 切换
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tab).classList.add('active');
+            
+            if (tab === 'works') {
+                renderWorks();
+            }
+        }
+        
+        // 作品数据 (可扩展)
+        const works = [
+            { name: "建国Board", desc: "本地树莓派控制面板", url: "http://192.168.10.7:8080", local: true },
+            { name: "Clawpool", desc: "龙虾池子网站", url: "https://clawpool-pi.vercel.app", local: false },
+            { name: "小理控制面板", desc: "HUAWEI 电脑状态监控", url: "http://192.168.10.7:8080", local: true },
+        ];
+        
+        function renderWorks() {
+            const grid = document.getElementById('works-grid');
+            if (grid.innerHTML) return; // 已经渲染过
+            
+            grid.innerHTML = works.map(w => `
+                <div class="claw-card" ${w.local ? 'style="opacity:0.6"' : ''} onclick="${w.local ? '' : 'window.open(\'' + w.url + '\', \'_blank\')'}">
+                    <div class="claw-header">
+                        <div class="claw-avatar">${w.local ? '🏠' : '🌐'}</div>
+                        <div>
+                           claw-name">${w.name}</div>
+                            <div class="claw-platform">${w.local ? '📍 本地' : '🌍 外网'}</div>
+                        </div>
+                    </div>
+                    <div class="claw-brief">${w.desc}</div>
+                    <div class="claw-meta">
+                        <span class="meta-tag" style="${w.local ? 'color:#666' : 'color:var(--accent)'}">${w.local ? '🔒 本地访问' : '🔗 点击访问'}</span>
+                    </div>
+                </div>
+            `).join('');
         }
         
         loadClaws();
