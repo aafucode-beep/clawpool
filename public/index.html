@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🦞 Clawpool 龙虾池子</title>
+    <style>
+        :root {
+            --bg: #0a192f;
+            --bg2: #112240;
+            --bg3: #233554;
+            --text: #ccd6f6;
+            --text2: #8892b0;
+            --accent: #64ffda;
+            --lobster: #ff6b6b;
+            --gold: #ffd93d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        header {
+            background: var(--bg2);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--bg3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 { 
+            font-size: 1.5rem; 
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        header h1 span { font-size: 2rem; }
+        
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+        }
+        .hero h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero p {
+            color: var(--text2);
+            font-size: 1rem;
+        }
+        
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: var(--bg2);
+            border: 1px solid var(--bg3);
+            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            min-width: 150px;
+        }
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        .stat-card .label {
+            color: var(--text2);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+        
+        /* Claw Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .claw-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .claw-card {
+            background: var(--bg2);
+            border: 1px solid var(--bg3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .claw-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        
+        .claw-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .claw-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--bg3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        .claw-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .claw-platform {
+            color: var(--text2);
+            font-size: 0.85rem;
+        }
+        
+        .claw-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .status-active {
+            background: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+        }
+        .status-inactive {
+            background: rgba(255, 107, 107, 0.1);
+            color: var(--lobster);
+        }
+        
+        .claw-info {
+            display: grid;
+            gap: 0.5rem;
+        }
+        .claw-info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+        .claw-info-row .label {
+            color: var(--text2);
+        }
+        
+        .claw-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .tag {
+            background: var(--bg3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text2);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text2);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--bg3);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>🦞</span> Clawpool</h1>
+        <div id="device-name"></div>
+    </header>
+    
+    <div class="hero">
+        <h2>🐉 我的龙虾池子</h2>
+        <p>记录各平台养的小龙虾 🦐</p>
+    </div>
+    
+    <div class="stats">
+        <div class="stat-card">
+            <div class="number" id="total-claws">-</div>
+            <div class="label">�龙虾总数</div>
+        </div>
+        <div class="stat-card">
+            <div class="number" id="active-claws">-</div>
+            <div class="label">✅ 活跃</div>
+        </div>
+        <div class="stat-card">
+            <div class="number" id="platforms">-</div>
+            <div class="label">🌐 平台数</div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h3 class="section-title">🦐 虾兵虾将</h3>
+        <div class="claw-grid" id="claw-grid">
+            <!-- 动态加载 -->
+        </div>
+    </div>
+    
+    <footer>
+        <p>🦞 Clawpool 龙虾池子 | 由 建国 🦞 打造</p>
+    </footer>
+    
+    <script>
+        const API_BASE = '';
+        
+        async function loadClaws() {
+            try {
+                const resp = await fetch(API_BASE + '/api/claws');
+                const claws = await resp.json();
+                renderClaws(claws);
+                updateStats(claws);
+            } catch (e) {
+                console.error('加载失败:', e);
+                // 演示数据
+                const demoClaws = [
+                    {
+                        name: "建国",
+                        platform: "OpenClaw",
+                        emoji: "🦞",
+                        status: "active",
+                        role: "超级个人助理",
+                        messages: 1234,
+                        lastActive: "2026-03-11"
+                    },
+                    {
+                        name: "Claude",
+                        platform: "Claude Code",
+                        emoji: "💻",
+                        status: "active",
+                        role: "编程助手",
+                        messages: 567,
+                        lastActive: "2026-03-10"
+                    },
+                    {
+                        name: "小理",
+                        platform: "HUAWEI",
+                        emoji: "🦐",
+                        status: "inactive",
+                        role: "控制面板",
+                        messages: 89,
+                        lastActive: "2026-03-05"
+                    }
+                ];
+                renderClaws(demoClaws);
+                updateStats(demoClaws);
+            }
+        }
+        
+        function renderClaws(claws) {
+            const grid = document.getElementById('claw-grid');
+            grid.innerHTML = claws.map(claw => `
+                <div class="claw-card">
+                    <div class="claw-header">
+                        <div class="claw-avatar">${claw.emoji || '🦞'}</div>
+                        <div>
+                            <div class="claw-name">${claw.name}</div>
+                            <div class="claw-platform">${claw.platform}</div>
+                        </div>
+                    </div>
+                    <div class="claw-status ${claw.status === 'active' ? 'status-active' : 'status-inactive'}">
+                        <span>${claw.status === 'active' ? '🟢' : '⚪'}</span>
+                        ${claw.status === 'active' ? '活跃中' : '休眠中'}
+                    </div>
+                    <div class="claw-info">
+                        <div class="claw-info-row">
+                            <span class="label">角色</span>
+                            <span>${claw.role || '-'}</span>
+                        </div>
+                        <div class="claw-info-row">
+                            <span class="label">消息数</span>
+                            <span>${claw.messages || 0}</span>
+                        </div>
+                        <div class="claw-info-row">
+                            <span class="label">最后活跃</span>
+                            <span>${claw.lastActive || '-'}</span>
+                        </div>
+                    </div>
+                    <div class="claw-tags">
+                        ${(claw.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function updateStats(claws) {
+            document.getElementById('total-claws').textContent = claws.length;
+            document.getElementById('active-claws').textContent = claws.filter(c => c.status === 'active').length;
+            const platforms = [...new Set(claws.map(c => c.platform))];
+            document.getElementById('platforms').textContent = platforms.length;
+        }
+        
+        // 初始化
+        loadClaws();
+    </script>
+</body>
+</html>
