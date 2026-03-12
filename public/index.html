@@ -234,8 +234,8 @@
     
     <!-- Tab 导航 -->
     <div class="tabs">
-        <div class="tab active" onclick="switchTab('lobsters')">🦞 龙虾</div>
-        <div class="tab" onclick="switchTab('works')">🛠️ 作品</div>
+        <div class="tab active" onclick="switchTab('lobsters', this)">🦞 龙虾</div>
+        <div class="tab" onclick="switchTab('works', this)">🛠️ 作品</div>
     </div>
     
     <!-- 龙虾 Tab -->
@@ -284,12 +284,20 @@
         
         async function loadClaws() {
             try {
-                const resp = await fetch(API_BASE + '/api/claws');
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
+                
+                const resp = await fetch(API_BASE + '/api/claws', { 
+                    signal: controller.signal 
+                });
+                clearTimeout(timeoutId);
+                
                 allClaws = await resp.json();
                 renderClaws(allClaws);
                 updateStats(allClaws);
             } catch (e) {
                 console.error('加载失败:', e);
+                // 无后端时使用演示数据
                 const demoClaws = [
                     {
                         name: "建国", platform: "yj", emoji: "🦞",
@@ -397,10 +405,10 @@
         }
         
         // Tab 切换
-        function switchTab(tab) {
+        function switchTab(tab, el) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            event.target.classList.add('active');
+            el.classList.add('active');
             document.getElementById('tab-' + tab).classList.add('active');
             
             if (tab === 'works') {
@@ -424,7 +432,7 @@
                     <div class="claw-header">
                         <div class="claw-avatar">${w.local ? '🏠' : '🌐'}</div>
                         <div>
-                           claw-name">${w.name}</div>
+                            <div class="claw-name">${w.name}</div>
                             <div class="claw-platform">${w.local ? '📍 本地' : '🌍 外网'}</div>
                         </div>
                     </div>
